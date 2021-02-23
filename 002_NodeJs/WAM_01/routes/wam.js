@@ -13,10 +13,11 @@ router.get('/', (req, res) => {
         //ActionId가 사용 가능 할 경우
         if(mCommon.ActionIdUseCheck(strActionId)){
             var arrAction = mCount.GetList(strActionId);
-            mCount.TotCountUp();
-            console.log(arrAction);
+            mCount.TotCountUp(strActionId);
+            //console.log(arrAction);
         }
     }
+    var tmpDt = new Date();
     res.send(rtnVal);
 });
 

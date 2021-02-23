@@ -10,11 +10,16 @@ const userRouter = require('./routes/user');
 const wamRouter = require('./routes/wam');
 
 const app = express();
-app.set('port', process.env.PORT);
 
+app.set('port', process.env.PORT);
 app.use(morgan('dev'));
 
-app.use('/wam/', wamRouter);
+//status 값을 304로 넘기기 때문에 처리하는 부분
+//https://ko.ojit.com/so/node.js/50362
+//https://huns.me/development/2306
+app.disable('etag');
+
+app.use('/wam', wamRouter);
 app.use('/user', userRouter);
 app.use('/', indexRouter);
 
