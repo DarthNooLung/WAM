@@ -7,4 +7,14 @@ function fnActionIdUseCheck(strActionId) {
     return isChk;
 }
 
+
+//GUID 구하는 함수
+function fnGetGuid() {
+    function s4() {
+        return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
 module.exports.ActionIdUseCheck = fnActionIdUseCheck;
+module.exports.GetGuid = fnGetGuid;
