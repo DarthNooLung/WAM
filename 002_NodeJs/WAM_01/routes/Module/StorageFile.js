@@ -15,14 +15,14 @@ function fnFileCheck(strFileName){
 }
 module.exports.FileCheck = fnFileCheck;
 
-//파일 생성
-function fnCreateFile(strFileName)
+//파일 쓰기
+function fnWriteFile(strFileName, strContents)
 {
     var isRtn = true;
     try
     {
         var strUseFilePath = pathStorage + strFileName;
-        fs.writeFileSync(strUseFilePath, "");
+        fs.writeFileSync(strUseFilePath, strContents, "utf8");
     }
     catch(err)
     {
@@ -30,4 +30,22 @@ function fnCreateFile(strFileName)
     }
     return isRtn;
 }
-module.exports.CreateFile = fnCreateFile;
+module.exports.WriteFile = fnWriteFile;
+
+
+//파일 읽기
+function fnReadFile(strFileName)
+{
+    var strRtn = "";
+    try
+    {
+        var strUseFilePath = pathStorage + strFileName;
+        strRtn = fs.readFileSync(strUseFilePath, "utf8");
+    }
+    catch(err)
+    {
+        strRtn = "";
+    }
+    return strRtn;
+}
+module.exports.ReadFile = fnReadFile;
