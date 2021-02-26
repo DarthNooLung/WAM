@@ -7,6 +7,7 @@ dotenv.config();
 
 const indexRouter = require('./routes');
 const wamRouter = require('./routes/wam');
+const wamConRouter = require('./routes/Sample/WamCon');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(morgan('dev'));
 //https://huns.me/development/2306
 app.disable('etag');
 
+app.use('/wamcon', wamConRouter);
 app.use('/wam', wamRouter);
 app.use('/', indexRouter);
 

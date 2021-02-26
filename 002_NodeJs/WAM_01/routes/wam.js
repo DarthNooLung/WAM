@@ -34,6 +34,7 @@ router.get('/', (req, res) => {
 
                 //Unique한 키값을 생성후 Client 쿠키 생성
                 var strGuid = mCommon.GetGuid();
+                res.cookie("WamActionId", strGuid);
 
                 //ActionId / UniqueKey / Staus[I/O] / InsertDt - 추후 기능개발 필요 (In Out Log 쌓기)
                 
