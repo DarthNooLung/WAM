@@ -90,6 +90,10 @@ function fnTotCountUp(strActionId){
         {
             arrTmpVal[1]++;
             arrMaster[i] = arrTmpVal;
+
+            if(arrTmpVal[1] % 10 == 0){
+                mActionInfor.ActionIdUpdate(strActionId, "TotCnt", arrTmpVal[1]);
+            }
         }
     }
 }

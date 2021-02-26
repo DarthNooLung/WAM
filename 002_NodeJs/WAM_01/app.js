@@ -6,7 +6,6 @@ const path = require('path');
 dotenv.config();
 
 const indexRouter = require('./routes');
-const userRouter = require('./routes/user');
 const wamRouter = require('./routes/wam');
 
 const app = express();
@@ -20,7 +19,6 @@ app.use(morgan('dev'));
 app.disable('etag');
 
 app.use('/wam', wamRouter);
-app.use('/user', userRouter);
 app.use('/', indexRouter);
 
 
