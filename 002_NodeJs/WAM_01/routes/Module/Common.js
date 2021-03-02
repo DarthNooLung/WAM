@@ -1,3 +1,5 @@
+const crypto = require("crypto")
+
 //Action ID가 사용 가능한지 체크
 function fnActionIdUseCheck(strActionId) {
     var isChk = false;
@@ -6,7 +8,7 @@ function fnActionIdUseCheck(strActionId) {
     isChk = true;
     return isChk;
 }
-
+module.exports.ActionIdUseCheck = fnActionIdUseCheck;
 
 //GUID 구하는 함수
 function fnGetGuid() {
@@ -15,6 +17,24 @@ function fnGetGuid() {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
-
-module.exports.ActionIdUseCheck = fnActionIdUseCheck;
 module.exports.GetGuid = fnGetGuid;
+
+//문자열 암호화
+function fnAesEnc(strVal) {
+    var rtnVal = "";
+    const cipher = crypto.createCipheriv(process.env.ALGORITHM, process.env.AES_KEY, process.env.AES_IV);
+    let result = cipher.update(strVal, "utf8", "base64");
+    result += cipher.final("base64");
+    return result;
+}
+module.exports.AesEnc = fnAesEnc;
+
+//문자열 복호화
+function fnAesDec(strVal) {
+    var rtnVal = "";
+    const decipher = crypto.createDecipheriv(process.env.ALGORITHM, process.env.AES_KEY, process.env.AES_IV);
+    let result = decipher.update(strVal, "base64", "utf8");
+    result += decipher.final("utf8");
+    return result;
+}
+module.exports.AesDec = fnAesDec;

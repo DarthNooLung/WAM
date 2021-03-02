@@ -35,19 +35,22 @@ router.get('/', (req, res) => {
 
                 //Unique한 키값을 생성후 Client 쿠키 생성
                 var strGuid = mCommon.GetGuid();
-                res.cookie("WamActionId", strGuid);
+                //ActionId_유니크키_내순번
+                var strCookie = strActionId + "_" + strGuid + "_" + String(rtnVal.MyOrd);
+                //키값 암호화
+                strCookie = mCommon.AesEnc(strCookie);
+                console.log(strCookie);
+                res.cookie("WamActionId", strCookie);
 
                 //ActionId / UniqueKey / Staus[I/O] / InsertDt - 추후 기능개발 필요 (In Out Log 쌓기)
                 
                 rtnVal.isError = false;
-
-                console.log(arrAction);
+                //console.log(arrAction);
             }
         }
     }
 
     rtnVal ="fnWamResult(" + JSON.stringify(rtnVal) + ")";
-    console.log(rtnVal);
     res.send(rtnVal);
 });
 
