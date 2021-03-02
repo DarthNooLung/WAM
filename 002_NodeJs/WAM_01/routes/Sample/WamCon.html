@@ -1,13 +1,110 @@
 <html>
     <head>
+        <script type="text/javascript" src="/Include/Js/jquery-latest.js?NowTime=<%=NowTime%>"></script>
+        <script type="text/javascript">
+            function fnStart() {
+                $("#btnStart").hide();
+                $.ajax({
+                    url: "http://localhost:216/wam?ActionId=1",
+                    dataType: 'jsonp',
+                    jsonp: 'jsonp',
+                    jsonpCallback: "fnWamResult",
+                    error: function (request, error) {
+                        alert("message:" + request.responseText);
+                    }
+                });
+            }
 
+            function fnWait() {
+                $.ajax({
+                    url: "http://wam.hdec.co.kr/wam.aspx?strType=WAIT&strMyOrd=" + $("#txtMyOrd").val(),
+                    dataType: 'jsonp',
+                    jsonp: 'jsonp',
+                    jsonpCallback: "fnWamResult",
+                    error: function (request, error) {
+                        alert("message:" + request.responseText);
+                    }
+                });
+            }
+
+            function fnWamResult(data) {
+                /*
+                $("#txtType").val(data.RtnType);
+                $("#txtTotCnt").val(data.TotCnt);
+                $("#txtNowOrd").val(data.NowOrd);
+                $("#txtMyOrd").val(data.MyOrd);
+
+                var iTotCnt = Number(data.TotCnt);
+                var iNowOrd = Number(data.NowOrd);
+                var iMyOrd = Number(data.MyOrd);
+
+                //전체인원 구하기
+                var iTot = iTotCnt - iNowOrd;
+                //내 앞 구하기
+                var iBef = iMyOrd - iNowOrd - 1;
+                //내 뒤 구하기
+                var iAft = iTot - iBef - 1;
+
+                //대기값 받아 왔을 경우
+                if (data.RtnType == "WAIT") {
+                    $("#tdTotal").text(String(iTot));
+                    $("#tdBefore").text(String(iBef));
+                    $("#tdAfter").text(String(iAft));
+                    $("#tblWAM").show();
+                    setTimeout(fnWait, 1000);
+                }
+                else if (data.RtnType == "FINISH") {
+                    $("#tdTotal").text(String(iTot));
+                    $("#tdBefore").text(String(iBef));
+                    $("#tdAfter").text(String(iAft));
+                    $("#tblWAM").hide();
+                    $("#btnFInish").show();
+                }
+                else if (data.RtnType == "DONE") {                
+                    $("#btnFInish").hide();
+                    $("#btnStart").show();
+                    alert("끝");
+                }
+                */
+            }
+
+            function fnFinish() {
+                $.ajax({
+                    url: "http://wam.hdec.co.kr/wam.aspx?strType=FINISH&strMyOrd=" + $("#txtMyOrd").val(),
+                    dataType: 'jsonp',
+                    jsonp: 'jsonp',
+                    jsonpCallback: "fnWamResult",
+                    error: function (request, error) {
+                        alert("message:" + request.responseText);
+                    }
+                });
+            }
+            $(document).ready(function() {
+            });
+        </script>
     </head>
     <body>
-        <div style="width:100%;text-align:center;border:1px solid red;">
+        <div style="width:100%;text-align:center;border:0px solid blue;" id="btnStart">
+            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:blue;font-weight: bold;background-color: #e4e4e4;" onclick="fnStart();">시작</div>
+        </div>
+        <div style="width:100%;text-align:center;border:0px solid green;" id="btnFInish">
+            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:green;font-weight: bold;background-color: #e4e4e4;display:none;" onclick="fnFinish();"">종료</div>
+        </div>
+        <div style="width:100%;text-align:center;border:0px solid red;" id="divStatus">
                 <div>
-                    <table style="margin-left: auto; margin-right: auto;" border="1">
-                    <tr><td>asdfasf</td></tr>
-                </table></div>
+                    <table style="margin-left: auto; margin-right: auto;width: 202px;" border="1" cellpadding="0" cellspacing="0">
+                        <colgroup>
+                            <col width="33%"/>
+                            <col width="33%"/>
+                            <col width="*"/>
+                        </colgroup>
+                        <tr>
+                            <th>전체</th>
+                            <th>앞</th>
+                            <th>뒤</th>
+                        </tr>
+                    </table>
+                </div>
         </div>
     </body>
 </html>

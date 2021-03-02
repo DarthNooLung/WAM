@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
     //return 값을 Jquery로 처리
     var rtnVal = {
         isError: true,
+        RtnType: "WAIT",
         TotCnt: 0,
         NowOrd: 0,
         MyOrd: 0
@@ -44,8 +45,10 @@ router.get('/', (req, res) => {
             }
         }
     }
-    
-    res.send(JSON.stringify(rtnVal));
+
+    rtnVal ="fnWamResult(" + JSON.stringify(rtnVal) + ")";
+    console.log(rtnVal);
+    res.send(rtnVal);
 });
 
 module.exports = router;
