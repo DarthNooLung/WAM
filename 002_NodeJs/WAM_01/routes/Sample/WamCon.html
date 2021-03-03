@@ -5,7 +5,7 @@
             function fnStart() {
                 $("#btnStart").hide();
                 $.ajax({
-                    url: "http://localhost:216/wam?ActionId=1",
+                    url: "http://localhost:216/wams?ActionId=1",
                     dataType: 'jsonp',
                     jsonp: 'jsonp',
                     jsonpCallback: "fnWamResult",
@@ -17,7 +17,7 @@
 
             function fnWait() {
                 $.ajax({
-                    url: "http://wam.hdec.co.kr/wam.aspx?strType=WAIT&strMyOrd=" + $("#txtMyOrd").val(),
+                    url: "http://localhost:216/wami?ActionId=1",
                     dataType: 'jsonp',
                     jsonp: 'jsonp',
                     jsonpCallback: "fnWamResult",

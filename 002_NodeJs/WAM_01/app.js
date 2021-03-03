@@ -5,7 +5,8 @@ const path = require('path');
 dotenv.config();
 
 const indexRouter = require('./routes');
-const wamRouter = require('./routes/wam');
+const wamsRouter = require('./routes/wams');
+const wamiRouter = require('./routes/wami');
 const wamConRouter = require('./routes/Sample/WamCon');
 
 const app = express();
@@ -19,7 +20,8 @@ app.disable('etag');
 //Include 폴더 경로 잡기
 app.use("/Include", express.static(path.join(__dirname, "/routes/Include")));
 app.use('/wamcon', wamConRouter);
-app.use('/wam', wamRouter);
+app.use('/wams', wamsRouter);
+app.use('/wami', wamiRouter);
 app.use('/', indexRouter);
 
 
