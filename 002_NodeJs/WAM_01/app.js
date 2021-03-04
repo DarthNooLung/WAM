@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const dotenv = require("dotenv");
 const path = require('path');
+var cookieParser = require('cookie-parser');
 dotenv.config();
 
 const indexRouter = require('./routes');
@@ -10,6 +11,7 @@ const wamiRouter = require('./routes/wami');
 const wamConRouter = require('./routes/Sample/WamCon');
 
 const app = express();
+app.use(cookieParser());
 app.set('port', process.env.PORT);
 app.set("view engine", "ejs");
 app.engine("html", require("ejs").renderFile);
