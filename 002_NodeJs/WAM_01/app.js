@@ -8,6 +8,7 @@ dotenv.config();
 const indexRouter = require('./routes');
 const wamsRouter = require('./routes/wams');
 const wamiRouter = require('./routes/wami');
+const wamfRouter = require('./routes/wamf');
 const wamConRouter = require('./routes/Sample/WamCon');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use("/Include", express.static(path.join(__dirname, "/routes/Include")));
 app.use('/wamcon', wamConRouter);
 app.use('/wams', wamsRouter);
 app.use('/wami', wamiRouter);
+app.use('/wamf', wamfRouter);
 app.use('/', indexRouter);
 
 

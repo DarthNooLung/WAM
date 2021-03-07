@@ -46,9 +46,9 @@
                         $("#tdBefore").text(String(iBef));
                         $("#tdAfter").text(String(iAft));
                         $("#divWAM").show();
-                        //setTimeout(fnWait, 1000);
+                        setTimeout(fnWait, 1000);
                     }
-                    else if (data.RtnType == "FINISH") {
+                    else if (data.RtnType == "PASS") {
                         $("#tdTotal").text(String(iTot));
                         $("#tdBefore").text(String(iBef));
                         $("#tdAfter").text(String(iAft));
@@ -65,7 +65,7 @@
 
             function fnFinish() {
                 $.ajax({
-                    url: "http://wam.hdec.co.kr/wam.aspx?strType=FINISH&strMyOrd=" + $("#txtMyOrd").val(),
+                    url: "http://localhost:216/wamf?ActionId=1",
                     dataType: 'jsonp',
                     jsonp: 'jsonp',
                     jsonpCallback: "fnWamResult",
@@ -82,8 +82,8 @@
         <div style="width:100%;text-align:center;border:0px solid blue;" id="btnStart">
             <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:blue;font-weight: bold;background-color: #e4e4e4;" onclick="fnStart();">시작</div>
         </div>
-        <div style="width:100%;text-align:center;border:0px solid green;" id="btnFInish">
-            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:green;font-weight: bold;background-color: #e4e4e4;display:none;" onclick="fnFinish();"">종료</div>
+        <div style="width:100%;text-align:center;border:0px solid green;display:none;" id="btnFInish">
+            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:green;font-weight: bold;background-color: #e4e4e4;" onclick="fnFinish();"">종료</div>
         </div>
         <div style="width:100%;text-align:center;border:0px solid red;display:none;" id="divWAM">
             <div>

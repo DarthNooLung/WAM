@@ -79,6 +79,7 @@ function fnGetList(strActionId)
 
     return arrRtnVal;
 }
+module.exports.GetList = fnGetList;
 
 //전체 카운트 증가
 function fnTotCountUp(strActionId){
@@ -97,6 +98,24 @@ function fnTotCountUp(strActionId){
         }
     }
 }
-
-module.exports.GetList = fnGetList;
 module.exports.TotCountUp = fnTotCountUp;
+
+//NowOrder 증가 처리
+function fnNowOrdUp(strActionId){
+    for(var i = 0; i < arrMaster.length; i++)
+    {
+        var arrTmpVal = arrMaster[i];
+
+        if(arrTmpVal[0] == strActionId)
+        {
+            arrTmpVal[2]++;
+            arrMaster[i] = arrTmpVal;
+
+            if(arrTmpVal[2] % 10 == 0){
+                mActionInfor.ActionIdUpdate(strActionId, "NowOrd", arrTmpVal[2]);
+            }
+        }
+    }
+    console.log(arrMaster);
+}
+module.exports.NowOrdUp = fnNowOrdUp;

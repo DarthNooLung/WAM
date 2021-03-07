@@ -57,7 +57,11 @@ function fnActionIdUpdate(ActionId, Status, UpVal){
             if(dtActionList[i].ActionId == ActionId) {
                 if(Status == "TotCnt"){
                     dtActionList[i].TotCnt = UpVal;
-                    console.log(UpVal);
+                    //console.log(UpVal);
+                }
+                else if(Status == "NowOrd"){
+                    dtActionList[i].NowOrd = UpVal;
+                    //console.log(UpVal);
                 }
             }
         }
