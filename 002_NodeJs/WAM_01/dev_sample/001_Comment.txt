@@ -1,1 +1,4 @@
+1. 넷퍼넬 사용법
 NetFunnel_Action({ action_id: "Act_Yon_2", popup_target: parent.IndexMainForm, use_frame_block: true, frame_block_list: [{ win: parent.IndexTopForm }, { win: parent.IndexLeftForm }, { win: parent.IndexBottomForm}] }, function (ev, ret) {
+
+2. 교육시스템 GetData 가져오기
