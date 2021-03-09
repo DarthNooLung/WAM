@@ -18,6 +18,7 @@ function WAM_GO(o, c)
     if(c == undefined)
     {
         alert("없어2");
+    }
     else 
     {
         alert("있어2");
