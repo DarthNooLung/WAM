@@ -2,7 +2,16 @@
     <head>
         <script type="text/javascript" src="/Include/Js/jquery-latest.js?NowTime=<%=NowTime%>"></script>
         <script type="text/javascript" src="/Include/Js/wamTmp.js?NowTime=<%=NowTime%>"></script>
+        <script type="text/javascript" src="/Include/Js/wam.js?NowTime=<%=NowTime%>"></script>
         <script type="text/javascript">
+            function fnCall()
+            {
+                alert("시작");
+                WAM_GO({wam_id: "1"}, function() {
+                    alert("함수");
+                });
+                alert("종료");
+            }
             $(document).ready(function() {
             });
         </script>
@@ -34,6 +43,9 @@
                     </tr>
                 </table>
             </div>
+        </div><br/><br/><br/>
+        <div style="width:100%;text-align:center;border:0px solid green;" id="btnFInish">
+            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:brown;font-weight: bold;background-color: #e4e4e4;" onclick="fnCall();"">테스트</div>
         </div>
     </body>
 </html>
