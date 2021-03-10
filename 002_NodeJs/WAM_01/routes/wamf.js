@@ -45,7 +45,7 @@ router.get('/', (req, res) => {
             }
         }
     }
-    rtnVal ="fnWamResult(" + JSON.stringify(rtnVal) + ")";
+    rtnVal ="wamResult(" + JSON.stringify(rtnVal) + ")";
     res.send(rtnVal);
 });
 

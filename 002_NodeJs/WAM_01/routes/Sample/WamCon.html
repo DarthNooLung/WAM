@@ -1,16 +1,17 @@
 <html>
     <head>
-        <script type="text/javascript" src="/Include/Js/jquery-latest.js?NowTime=<%=NowTime%>"></script>
-        <script type="text/javascript" src="/Include/Js/wamTmp.js?NowTime=<%=NowTime%>"></script>
         <script type="text/javascript" src="/Include/Js/wam.js?NowTime=<%=NowTime%>"></script>
         <script type="text/javascript">
             function fnCall()
             {
-                alert("시작");
-                WAM_GO({wam_id: "1"}, function() {
-                    alert("함수");
+                WAM_GO({action_id: "1"}, function() {
+                    var iCnt = 0;
+                    for(var i = 0; i < 5000000000; i++)
+                    {
+                        iCnt++;
+                    }
+                    alert(iCnt);
                 });
-                alert("종료");
             }
             $(document).ready(function() {
             });
@@ -18,10 +19,10 @@
     </head>
     <body>
         <div style="width:100%;text-align:center;border:0px solid blue;" id="btnStart">
-            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:blue;font-weight: bold;background-color: #e4e4e4;" onclick="fnStart();">시작</div>
+            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:blue;font-weight: bold;background-color: #e4e4e4;" onclick="fnCall();">시작</div>
         </div>
         <div style="width:100%;text-align:center;border:0px solid green;display:none;" id="btnFInish">
-            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:green;font-weight: bold;background-color: #e4e4e4;" onclick="fnFinish();"">종료</div>
+            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:green;font-weight: bold;background-color: #e4e4e4;">종료</div>
         </div>
         <div style="width:100%;text-align:center;border:0px solid red;display:none;" id="divWAM">
             <div>
@@ -43,9 +44,6 @@
                     </tr>
                 </table>
             </div>
-        </div><br/><br/><br/>
-        <div style="width:100%;text-align:center;border:0px solid green;" id="btnFInish">
-            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:brown;font-weight: bold;background-color: #e4e4e4;" onclick="fnCall();"">테스트</div>
         </div>
     </body>
 </html>
