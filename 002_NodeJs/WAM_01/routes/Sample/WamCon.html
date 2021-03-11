@@ -4,17 +4,26 @@
         <script type="text/javascript">
             function fnCall()
             {
+                /*
+                alert(WaitAMinute.MainLayerY);
+                alert(WaitAMinute.MainLayerX);
+                alert(window.scrollY || window.pageYOffset);
+                alert(window.scrollX || window.pageXOffset);
+                alert(window.pageYOffset);
+                alert(window.pageXOffset);
+                alert(window.innerHeight);
+                alert(window.innerWidth);
+                return false;
+                */
                 WAM_GO({action_id: "1"}, function() {
                     var iCnt = 0;
-                    for(var i = 0; i < 5000000000; i++)
+                    for(var i = 0; i < 500000000; i++)
                     {
                         iCnt++;
                     }
                     alert(iCnt);
                 });
             }
-            $(document).ready(function() {
-            });
         </script>
     </head>
     <body>
