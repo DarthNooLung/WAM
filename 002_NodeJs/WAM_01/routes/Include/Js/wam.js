@@ -7,6 +7,8 @@ var WaitAMinute = new Object();
 WaitAMinute.ActionId = "";
 //Action 경로
 WaitAMinute.URL = "http://localhost:216";
+//레이어 HTML
+WaitAMinute.WamMainFrameBody = "<div style='width: 298; height: 198;text-align:center;border: 0px solid red;'><br/><table style='margin-left: auto; margin-right: auto;width: 250px;' border='1' cellpadding='0' cellspacing='0'><colgroup><col width='33%'/><col width='33%'/><col width='*'/></colgroup><tr><th>전체</th><th>앞</th><th>뒤</th></tr><tr><td id='WamLayerTotalCnt' style='text-align:center;'>0</td><td id='WamLayerBeforeCnt' style='text-align:center;'>0</td><td id='WamLayerAfterCnt' style='text-align:center;'>0</td></tr></table></div>";
 //호출 본체 함수
 //WaitAMinute.CallBodyFunction = null;
 //카운팅 레이어 크기
@@ -57,7 +59,7 @@ function WAM_GO(o, b)
             cFrameLayer.style.border = "0px";
             cFrameLayer.style.top = "0px";
             cFrameLayer.style.left = "0px";
-            cFrameLayer.style.backgroundColor = "black";
+            //cFrameLayer.style.backgroundColor = "black";
             cFrameLayer.style.display = "none";
             cFrameLayer.style.zIndex = 99999;
             cFrameLayer.src = "about:blank";
@@ -156,6 +158,17 @@ function wamResult(data) {
                     var popupX = (window.innerWidth / 2) - (WaitAMinute.MainLayerX / 2);
                     document.getElementById("wamMainFrame").style.top = String((window.scrollY || window.pageYOffset) + popupY) + "px";
                     document.getElementById("wamMainFrame").style.left = String((window.scrollX || window.pageXOffset) + popupX) + "px";
+
+                    var iWmf;
+                    if (document.getElementById("wamMainFrame").contentWindow) {
+                        iWmf = document.getElementById("wamMainFrame").contentWindow.document.getElementsByTagName("body")[0];
+                    } else if (document.getElementById("wamMainFrame").frames) {
+                        iWmf = document.getElementById("wamMainFrame").frames.document.getElementsByTagName("body")[0];
+                    }
+                    iWmf.innerHTML = WaitAMinute.WamMainFrameBody;
+                    //document.getElementById("wamMainFrame").contentWindow.document;
+                    //alert(iWmf.getElementById("WamLayerTotalCnt"));
+                    //iWmf.getElementById("WamLayerTotalCnt").innerText = String(iTot);
                     document.getElementById("wamMainFrame").style.display = "block";
                 }
             }
