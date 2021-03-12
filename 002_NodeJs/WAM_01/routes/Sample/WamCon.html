@@ -15,13 +15,18 @@
                 alert(window.innerWidth);
                 return false;
                 */
+               $("#btnStart").hide();
+               $("#btnIng").show();
                 WAM_GO({action_id: "1"}, function() {
+                    alert("호출 시작");                    
                     var iCnt = 0;
                     for(var i = 0; i < 500000000; i++)
                     {
                         iCnt++;
                     }
-                    alert(iCnt);
+                    alert("확인 버튼 클릭시 최종 호출 완료.");
+                    $("#btnIng").hide();
+                    $("#btnStart").show();
                 });
             }
         </script>
@@ -30,29 +35,8 @@
         <div style="width:100%;text-align:center;border:0px solid blue;" id="btnStart">
             <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:blue;font-weight: bold;background-color: #e4e4e4;" onclick="fnCall();">시작</div>
         </div>
-        <div style="width:100%;text-align:center;border:0px solid green;display:none;" id="btnFInish">
-            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:green;font-weight: bold;background-color: #e4e4e4;">종료</div>
-        </div>
-        <div style="width:100%;text-align:center;border:0px solid red;display:none;" id="divWAM">
-            <div>
-                <table style="margin-left: auto; margin-right: auto;width: 202px;" border="1" cellpadding="0" cellspacing="0">
-                    <colgroup>
-                        <col width="33%"/>
-                        <col width="33%"/>
-                        <col width="*"/>
-                    </colgroup>
-                    <tr>
-                        <th>전체</th>
-                        <th>앞</th>
-                        <th>뒤</th>
-                    </tr>
-                    <tr>
-                        <td id="tdTotal" style="text-align:center;">0</td>
-                        <td id="tdBefore" style="text-align:center;">0</td>
-                        <td id="tdAfter" style="text-align:center;">0</td>
-                    </tr>
-                </table>
-            </div>
+        <div style="width:100%;text-align:center;border:0px solid green;display:none;" id="btnIng">
+            <div style="border:1px solid black;width:200px;margin-left: auto; margin-right: auto;cursor:pointer;font-size:40px;padding:20px 0px 20px 0px;color:green;font-weight: bold;background-color: #e4e4e4;">진행중</div>
         </div>
     </body>
 </html>
