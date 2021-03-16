@@ -50,6 +50,10 @@ router.get('/', (req, res) => {
                 rtnVal.WamKey = strWamKey;
 
                 //ActionId / UniqueKey / Staus[I/O] / InsertDt - 추후 기능개발 필요 (In Out Log 쌓기)
+
+                if(Number(rtnVal.MyOrd) - Number(rtnVal.NowOrd) <= Number(arrAction[3])) {
+                    rtnVal.RtnType = "PASS";
+                }
                 
                 rtnVal.isError = false;
                 //console.log(arrAction);

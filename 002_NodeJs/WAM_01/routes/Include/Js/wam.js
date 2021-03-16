@@ -8,6 +8,7 @@ WaitAMinute.ActionId = "";
 //Action 경로
 WaitAMinute.URL = "http://localhost:216";
 //레이어 HTML
+//WaitAMinute.WamMainFrameBody = "<div style='width: 298; height: 198;text-align:center;border: 0px solid red;'><br/><table style='margin-left: auto; margin-right: auto;width: 250px;' border='1' cellpadding='0' cellspacing='0'><colgroup><col width='33%'/><col width='33%'/><col width='*'/></colgroup><tr><th>전체</th><th>앞</th><th>뒤</th></tr><tr><td id='WamLayerTotalCnt' style='text-align:center;'>{WamLayerTotalCnt}</td><td id='WamLayerBeforeCnt' style='text-align:center;'>{WamLayerBeforeCnt}</td><td id='WamLayerAfterCnt' style='text-align:center;'>{WamLayerAfterCnt}</td></tr></table><table style='margin-left: auto; margin-right: auto;width: 250px;margin-top:10px;' border='0' cellpadding='0' cellspacing='0'><tr><td style='border:1px solid black;height:15px;'><div style='background-color:#e4e4e4;width:{WamLayerPercent}%;font-size:2px;'>&nbsp;</div></td></tr></table></div>";
 WaitAMinute.WamMainFrameBody = "<div style='width: 298; height: 198;text-align:center;border: 0px solid red;'><br/><table style='margin-left: auto; margin-right: auto;width: 250px;' border='1' cellpadding='0' cellspacing='0'><colgroup><col width='33%'/><col width='33%'/><col width='*'/></colgroup><tr><th>전체</th><th>앞</th><th>뒤</th></tr><tr><td id='WamLayerTotalCnt' style='text-align:center;'>{WamLayerTotalCnt}</td><td id='WamLayerBeforeCnt' style='text-align:center;'>{WamLayerBeforeCnt}</td><td id='WamLayerAfterCnt' style='text-align:center;'>{WamLayerAfterCnt}</td></tr></table></div>";
 //호출 본체 함수
 //WaitAMinute.CallBodyFunction = null;
@@ -162,6 +163,12 @@ function wamResult(data) {
                 strWmfBody = strWmfBody.replace("{WamLayerTotalCnt}", String(iTot));
                 strWmfBody = strWmfBody.replace("{WamLayerBeforeCnt}", String(iBef));
                 strWmfBody = strWmfBody.replace("{WamLayerAfterCnt}", String(iAft));
+                if(iTot > 0) {
+                    strWmfBody = strWmfBody.replace("{WamLayerPercent}", String(Math.floor(iBef / iTot * 100)));
+                }
+                else {
+                    strWmfBody = strWmfBody.replace("{WamLayerPercent}", "0");
+                }
                 iWmf.innerHTML = strWmfBody;
                 
                 if(document.getElementById("wamMainFrame").style.display == "none") {
