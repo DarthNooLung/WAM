@@ -96,9 +96,9 @@ function wamStart() {
     });
 }
 
-function wamWait() {
+function wamWait(strWamKey) {
     $.ajax({
-        url: WaitAMinute.URL + "/wami?ActionId=" + WaitAMinute.ActionId,
+        url: WaitAMinute.URL + "/wami?ActionId=" + WaitAMinute.ActionId + "&WamKey=" + strWamKey,
         dataType: 'jsonp',
         jsonp: 'jsonp',
         jsonpCallback: "wamResult",
@@ -108,9 +108,9 @@ function wamWait() {
     });
 }
 
-function wamFinish() {
+function wamFinish(strWamKey) {
     $.ajax({
-        url: WaitAMinute.URL + "/wamf?ActionId=1",
+        url: WaitAMinute.URL + "/wamf?ActionId=" + WaitAMinute.ActionId + "&WamKey=" + strWamKey,
         dataType: 'jsonp',
         jsonp: 'jsonp',
         jsonpCallback: "wamResult",
@@ -173,7 +173,9 @@ function wamResult(data) {
                     document.getElementById("wamMainFrame").style.display = "block";
                 }
             }
-            setTimeout(wamWait, 1000);
+            setTimeout(function(){
+                wamWait(data.WamKey);
+            }, 1000);
         }
         else if (data.RtnType == "PASS") {
             $("#tdTotal").text(String(iTot));
@@ -192,7 +194,7 @@ function wamResult(data) {
 
             setTimeout(function(){
                 WaitAMinute.CallBodyFunction();
-                wamFinish();    
+                wamFinish(data.WamKey);    
             }, 500);
             
         }

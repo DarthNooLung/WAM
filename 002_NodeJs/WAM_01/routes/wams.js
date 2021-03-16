@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
     var rtnVal = {
         isError: true,
         RtnType: "WAIT",
+        WamKey: "",
         TotCnt: 0,
         NowOrd: 0,
         MyOrd: 0
@@ -29,20 +30,24 @@ router.get('/', (req, res) => {
                 //전체 사용자 수 반환값에 할당
                 rtnVal.TotCnt = arrAction[1];
 
-                 //현재까지 완료된 수 할당
-                 rtnVal.NowOrd = arrAction[2];
+                //현재까지 완료된 수 할당
+                rtnVal.NowOrd = arrAction[2];
 
                 //내 순번을 맨 마지막 번으로 할당
                 rtnVal.MyOrd = arrAction[1];
 
                 //Unique한 키값을 생성후 Client 쿠키 생성
                 var strGuid = mCommon.GetGuid();
+                
                 //ActionId_유니크키_내순번
-                var strCookie = strActionId + "_" + strGuid + "_" + String(rtnVal.MyOrd);
+                var strWamKey = strActionId + "_" + strGuid + "_" + String(rtnVal.MyOrd);
+
                 //키값 암호화
-                strCookie = mCommon.AesEnc(strCookie);
-                //console.log(strCookie);
-                res.cookie("WamActionId", strCookie);
+                strWamKey = mCommon.AesEnc(strWamKey);
+                strWamKey = encodeURIComponent(strWamKey);
+
+                //res.cookie("WamActionId", strWamKey);
+                rtnVal.WamKey = strWamKey;
 
                 //ActionId / UniqueKey / Staus[I/O] / InsertDt - 추후 기능개발 필요 (In Out Log 쌓기)
                 

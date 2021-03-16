@@ -22,17 +22,17 @@ router.get('/', (req, res) => {
                 var iNowOrd = arrAction[2];
                 
                  //쿠키값이 존재하는지 체크
-                 if(req.cookies.WamActionId != undefined) {
-                    var strCookie = req.cookies.WamActionId
+                 if(req.query.WamKey != undefined) {
+                    var strWamKey = decodeURIComponent(req.query.WamKey);
                     //쿠키값 복호화
-                    strCookie = mCommon.AesDec(strCookie);
+                    strWamKey = mCommon.AesDec(strWamKey);
 
                     //쿠키값에서 내 순번 가져오기
-                    var arrCookie = strCookie.split("_");
+                    var arrWamKey = strWamKey.split("_");
 
                     //3개의 값으로 이루어져 있는지 체크
-                    if(arrCookie.length == 3) {
-                        var iMyOrd = arrCookie[2];
+                    if(arrWamKey.length == 3) {
+                        var iMyOrd = arrWamKey[2];
                         //console.log(iNowOrd);
                         //console.log(iMyOrd);
                         //내순번 - 현재순번 <= 허용범위 카운트일 경우 반환값을 finish 처리
