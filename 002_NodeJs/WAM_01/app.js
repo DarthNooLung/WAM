@@ -1,15 +1,22 @@
 const express = require('express');
 const morgan = require('morgan');
+const connect = require("./routes/Sample/Mongo/Connect");
 const dotenv = require("dotenv");
 const path = require('path');
 var cookieParser = require('cookie-parser');
 dotenv.config();
+
+//몽고디비 Connect 여기에서 해줌
+connect();
 
 const indexRouter = require('./routes');
 const wamsRouter = require('./routes/wams');
 const wamiRouter = require('./routes/wami');
 const wamfRouter = require('./routes/wamf');
 const wamConRouter = require('./routes/Sample/WamCon');
+const mongoRouter = require('./routes/Sample/Mongo/Mongo');
+const mongoAddRouter = require('./routes/Sample/Mongo/MongoAdd');
+const mongoSelectRouter = require('./routes/Sample/Mongo/MongoSelect');
 
 const app = express();
 app.use(cookieParser());
@@ -22,6 +29,9 @@ app.disable('etag');
 
 //Include 폴더 경로 잡기
 app.use("/Include", express.static(path.join(__dirname, "/routes/Include")));
+app.use('/Mongo', mongoRouter);
+app.use('/MongoAdd', mongoAddRouter);
+app.use('/MongoSelect', mongoSelectRouter);
 app.use('/wamcon', wamConRouter);
 app.use('/wams', wamsRouter);
 app.use('/wami', wamiRouter);
