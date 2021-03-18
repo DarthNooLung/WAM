@@ -31,6 +31,9 @@ DB명 : WAM
 테이블
     - ConLog : 접속 로그
 
-
+계정
+    ID : nuricle
+    비번 : 황베드로
+    참고 : https://datamod.tistory.com/28
 
 3. 자바스크립트 상단에 ActionId 기본 설정 생성
