@@ -208,4 +208,7 @@ function wamResult(data) {
         else if (data.RtnType == "DONE") {                
         }
     }
+    else {
+        alert(data.Msg);
+    }
 }

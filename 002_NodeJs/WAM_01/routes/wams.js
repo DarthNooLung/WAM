@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var mCommon = require("./Module/Common");
+var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
 
 router.get('/', (req, res) => {
@@ -11,7 +12,8 @@ router.get('/', (req, res) => {
         WamKey: "",
         TotCnt: 0,
         NowOrd: 0,
-        MyOrd: 0
+        MyOrd: 0,
+        Msg: "",
     };
 
     if(req.query.ActionId != undefined)
@@ -20,8 +22,10 @@ router.get('/', (req, res) => {
 
         if(strActionId != "")
         {
+            var isChk = mStatus.GetStatus(strActionId);
+
             //ActionId가 사용 가능 할 경우
-            if(mCommon.ActionIdUseCheck(strActionId)){
+            if(isChk){
                 var arrAction = mCount.GetList(strActionId);
                 
                 //전체 사용자수 증가
@@ -57,6 +61,9 @@ router.get('/', (req, res) => {
                 
                 rtnVal.isError = false;
                 //console.log(arrAction);
+            }
+            else {
+                rtnVal.Msg = "등록되지 않은 아이디 입니다.";
             }
         }
     }

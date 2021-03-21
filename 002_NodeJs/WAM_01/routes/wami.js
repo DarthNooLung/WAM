@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var mCommon = require("./Module/Common");
+var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
 
 router.get('/', (req, res) => {
@@ -11,7 +12,8 @@ router.get('/', (req, res) => {
         WamKey: "",
         TotCnt: 0,
         NowOrd: 0,
-        MyOrd: 0
+        MyOrd: 0,
+        Msg: "",
     };
 
     if(req.query.ActionId != undefined) {
@@ -19,7 +21,7 @@ router.get('/', (req, res) => {
         
         if(strActionId != "") {            
             //ActionId가 사용 가능 할 경우
-            if(mCommon.ActionIdUseCheck(strActionId)){
+            if(mStatus.GetStatus(strActionId)){
                 var arrAction = mCount.GetList(strActionId);
 
                 //전체 사용자 수 반환값에 할당

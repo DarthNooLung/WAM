@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 var mCommon = require("./Module/Common");
+var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
 
 router.get('/', (req, res) => {
      //return 값을 Jquery로 처리
      var rtnVal = {
         isError: true,
-        RtnType: "DONE"
+        RtnType: "DONE",
+        Msg: "",
     };
 
     if(req.query.ActionId != undefined) {
@@ -15,7 +17,7 @@ router.get('/', (req, res) => {
         
         if(strActionId != "") {            
             //ActionId가 사용 가능 할 경우
-            if(mCommon.ActionIdUseCheck(strActionId)){
+            if(mStatus.GetStatus(strActionId)){
                 var arrAction = mCount.GetList(strActionId);
 
                 //현재까지 완료된 수 할당
