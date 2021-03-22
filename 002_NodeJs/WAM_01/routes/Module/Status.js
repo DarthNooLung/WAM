@@ -35,11 +35,10 @@ function fnSetStatus(strActionId, isStatus) {
 module.exports.SetStatus = fnSetStatus;
 
 //ActionId 값을 가져오는 함수
-function fnGetStatus(strActionId)
+async function fnGetStatus(strActionId)
 {
     var isChk = false;
     var isExists = false;
-    
     for(var i = 0; i < arrActionStatus.length; i++)
     {
         var arrTmp = arrActionStatus[i];
@@ -50,13 +49,11 @@ function fnGetStatus(strActionId)
             isChk = arrTmp[1];
         }
     }
-    
-    console.log(isExists);
+
     //값이 변수에 할당 안되어 있을 경우
     if(!isExists)
     {
-        isChk = mDa.ActionIdUseCheck(strActionId);
-        console.log(isChk);
+        isChk = await mDa.ActionIdUseCheck(strActionId);
         var arrTmp = [strActionId, isChk];
         arrActionStatus.push(arrTmp);
     }

@@ -4,7 +4,7 @@ var mCommon = require("./Module/Common");
 var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     //return 값을 Jquery로 처리
     var rtnVal = {
         isError: true,
@@ -22,10 +22,8 @@ router.get('/', (req, res) => {
 
         if(strActionId != "")
         {
-            var isChk = mStatus.GetStatus(strActionId);
-
             //ActionId가 사용 가능 할 경우
-            if(isChk){
+            if(await mStatus.GetStatus(strActionId)){
                 var arrAction = mCount.GetList(strActionId);
                 
                 //전체 사용자수 증가
@@ -67,7 +65,6 @@ router.get('/', (req, res) => {
             }
         }
     }
-    //console.log(rtnVal);
     rtnVal ="wamResult(" + JSON.stringify(rtnVal) + ")";
     res.send(rtnVal);
 });
