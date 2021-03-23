@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
         if(strActionId != "") {            
             //ActionId가 사용 가능 할 경우
             if(await mStatus.GetStatus(strActionId)){
-                var arrAction = mCount.GetList(strActionId);
+                var arrAction = await mCount.GetList(strActionId);
 
                 //전체 사용자 수 반환값에 할당
                 rtnVal.TotCnt = arrAction[1];
