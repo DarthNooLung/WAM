@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const WamMaster = require("./Schema/WamMaster");
 var mStatus = require("../Module/Status");
-var mDa = require("../Module/DataAccess");
+var mDWM = require("./Execute/DaWamMaster");
 
 router.get('/', async (req, res) => {
     //var isChk = await mDa.ActionIdUseCheck("1");

@@ -25,6 +25,7 @@ router.get('/', async (req, res) => {
             //ActionId가 사용 가능 할 경우
             if(await mStatus.GetStatus(strActionId)){
                 var arrAction = await mCount.GetList(strActionId);
+
                 //전체 사용자수 증가
                 await mCount.TotCountUp(strActionId);
                 

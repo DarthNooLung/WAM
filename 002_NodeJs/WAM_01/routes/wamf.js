@@ -3,6 +3,7 @@ const router = express.Router();
 var mCommon = require("./Module/Common");
 var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
+var mRecentAction = require("./Module/RecentAction");
 
 router.get('/', async (req, res) => {
      //return 값을 Jquery로 처리
@@ -35,11 +36,11 @@ router.get('/', async (req, res) => {
                     //3개의 값으로 이루어져 있는지 체크
                     if(arrWamKey.length == 3) {
                         var iMyOrd = arrWamKey[2];
-                        //console.log(iNowOrd);
-                        //console.log(iMyOrd);
                         //내순번 - 현재순번 <= 허용범위 카운트일 경우 반환값을 finish 처리
                         if(Number(iMyOrd) - Number(iNowOrd) <= Number(arrAction[3])) {
                             mCount.NowOrdUp(strActionId);
+                            //최근 로그 삭제
+                            mRecentAction.RecentActionDelete(strActionId, iMyOrd);
                             rtnVal.isError = false;
                         }
                     }

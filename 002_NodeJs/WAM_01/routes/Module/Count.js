@@ -1,6 +1,4 @@
-var mStorageFile = require("./StorageFile");
-var mActionInfor = require("./ActionInfor");
-var mDa = require("./DataAccess");
+const mDWM = require("../DataAccess/Execute/DaWamMaster");
 
 //Class를 통하여 각 ID의 키를 가지고 가기
 var arrMaster = new Array();
@@ -12,7 +10,7 @@ async function fnCreateList(strActionId)
     var arrActionInfor = [strActionId, 0, 0, 1];
 
     //데이터는 무조건 있음 이게 없으면 여기까지 실행이 안됨
-    var objActionInfor = await mDa.ActionIdInfo(strActionId);
+    var objActionInfor = await mDWM.ActionIdInfo(strActionId);
 
     arrActionInfor[1] = objActionInfor.TotCnt;
     arrActionInfor[2] = objActionInfor.NowOrd;
@@ -66,8 +64,8 @@ async function fnTotCountUp(strActionId){
             arrTmpVal[1]++;
             arrMaster[i] = arrTmpVal;
 
-            if(arrTmpVal[1] % 10 == 0){
-                mActionInfor.ActionIdUpdate(strActionId, "TotCnt", arrTmpVal[1]);
+            if(arrTmpVal[1] % 1 == 0){
+                await mDWM.ActionIdUpdate(strActionId, "TotCnt", arrTmpVal[1]);
             }
         }
     }
@@ -75,7 +73,7 @@ async function fnTotCountUp(strActionId){
 module.exports.TotCountUp = fnTotCountUp;
 
 //NowOrder 증가 처리
-function fnNowOrdUp(strActionId){
+async function fnNowOrdUp(strActionId){
     for(var i = 0; i < arrMaster.length; i++)
     {
         var arrTmpVal = arrMaster[i];
@@ -85,11 +83,11 @@ function fnNowOrdUp(strActionId){
             arrTmpVal[2]++;
             arrMaster[i] = arrTmpVal;
 
-            if(arrTmpVal[2] % 10 == 0){
-                mActionInfor.ActionIdUpdate(strActionId, "NowOrd", arrTmpVal[2]);
+            if(arrTmpVal[2] % 1 == 0){
+                await mDWM.ActionIdUpdate(strActionId, "NowOrd", arrTmpVal[2]);
             }
         }
     }
-    console.log(arrMaster);
+    //console.log(arrMaster);
 }
 module.exports.NowOrdUp = fnNowOrdUp;

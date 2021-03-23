@@ -2,7 +2,7 @@
 상태값을 최초 불러올때는 제외하고는 계속 변수에 담고 있음
 관리자페이지에서 상태값 변경 처리 할경우 DB 업데이트 처리 기능 필요
 */
-var mDa = require("./DataAccess");
+const mDWM = require("../DataAccess/Execute/DaWamMaster");
 
 //ActionId가 사용 가능한지 체크
 var arrActionStatus = new Array();
@@ -53,7 +53,7 @@ async function fnGetStatus(strActionId)
     //값이 변수에 할당 안되어 있을 경우
     if(!isExists)
     {
-        isChk = await mDa.ActionIdUseCheck(strActionId);
+        isChk = await mDWM.ActionIdUseCheck(strActionId);
         var arrTmp = [strActionId, isChk];
         arrActionStatus.push(arrTmp);
     }
