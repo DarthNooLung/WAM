@@ -3,6 +3,7 @@ const router = express.Router();
 var mCommon = require("./Module/Common");
 var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
+var mActionLog = require("./Module/ActionLog");
 
 router.get('/', async (req, res) => {
     //return 값을 Jquery로 처리
@@ -43,15 +44,14 @@ router.get('/', async (req, res) => {
                 
                 //ActionId_유니크키_내순번
                 var strWamKey = strActionId + "_" + strGuid + "_" + String(rtnVal.MyOrd);
-
+                //In Log 쌓기
+                mActionLog.ActionLogInsert(strActionId, strWamKey, rtnVal.MyOrd);
                 //키값 암호화
                 strWamKey = mCommon.AesEnc(strWamKey);
                 strWamKey = encodeURIComponent(strWamKey);
 
                 //res.cookie("WamActionId", strWamKey);
                 rtnVal.WamKey = strWamKey;
-
-                //ActionId / UniqueKey / Staus[I/O] / InsertDt - 추후 기능개발 필요 (In Out Log 쌓기)
 
                 if(Number(rtnVal.MyOrd) - Number(rtnVal.NowOrd) <= Number(arrAction[3])) {
                     rtnVal.RtnType = "PASS";

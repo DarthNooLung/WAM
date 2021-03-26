@@ -4,6 +4,7 @@ var mCommon = require("./Module/Common");
 var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
 var mRecentAction = require("./Module/RecentAction");
+var mActionLog = require("./Module/ActionLog");
 
 router.get('/', async (req, res) => {
      //return 값을 Jquery로 처리
@@ -41,6 +42,8 @@ router.get('/', async (req, res) => {
                             mCount.NowOrdUp(strActionId);
                             //최근 로그 삭제
                             mRecentAction.RecentActionDelete(strActionId, iMyOrd);
+                            //ActionLog OutDt Update
+                            mActionLog.ActionLogUpdate(strActionId, strWamKey, iMyOrd);
                             rtnVal.isError = false;
                         }
                     }

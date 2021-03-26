@@ -4,21 +4,22 @@ const {Schema} = mongoose;
 const dataSchema = new Schema({
     ActionId: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     WamKey: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     OrdNo: {
         type: Number,
         required: true
     },
-    InputDt: {
+    InDt: {
         type: Date,
         default: Date.now
+    },
+    OutDt: {
+        type: Date
     }
 });
 
