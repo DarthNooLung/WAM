@@ -1,4 +1,5 @@
 const WamMaster = require("../Schema/WamMaster");
+const mCount = require("../../Module/Count");
 
 //Action ID가 사용 가능한지 체크
 function fnActionIdUseCheck(strActionId) {
@@ -91,3 +92,18 @@ function fnActionIdUpdate(ActionId, Status, UpVal)
     }
 }
 module.exports.ActionIdUpdate = fnActionIdUpdate;
+
+//처음 생성시 ActionList 셋팅하기
+function fnActionMasterInit()
+{
+    WamMaster.find({UseYn: true})
+    .then(Data => {
+        for(var i =0; i < Data.length; i++)
+        {
+            mCount.GetList(Data[i].ActionId);
+        }
+    })
+    .catch(err => {
+    });
+}
+module.exports.ActionMasterInit = fnActionMasterInit;

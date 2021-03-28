@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const connect = require("./routes/DataAccess/Connect");
+const mDWRA = require("./routes/DataAccess/Execute/DaWamRecentAction");
 const dotenv = require("dotenv");
 const path = require('path');
 var cookieParser = require('cookie-parser');
@@ -10,8 +11,9 @@ dotenv.config();
 connect();
 
 setInterval(() => {
-    console.log("ASdfasdf");
-}, 10000);
+    //중간에 튕겨지거나 나간 사람들 체크해서 삭제 및 Count Update 처리
+    mDWRA.ActionRemove();
+}, 5000);
 
 const indexRouter = require('./routes');
 const wamsRouter = require('./routes/wams');
@@ -21,6 +23,7 @@ const wamMasterCreate = require('./routes/DataAccess/WamMasterCreate');
 
 //테스트용입니다. 나중에 제거하세요.
 const wamConRouter = require('./routes/Sample/WamCon');
+const { count } = require('./routes/DataAccess/Schema/WamRecentAction');
 
 const app = express();
 app.use(cookieParser());
@@ -41,7 +44,6 @@ app.use('/wams', wamsRouter);
 app.use('/wami', wamiRouter);
 app.use('/wamf', wamfRouter);
 app.use('/', indexRouter);
-
 
 app.use((req, res, next) => {
     res.status(404).send('Not Found');

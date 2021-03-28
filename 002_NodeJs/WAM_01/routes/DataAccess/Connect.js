@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 const mCommon = require("../Module/Common");
+const mDWM = require("../DataAccess/Execute/DaWamMaster");
 
 const connect = () => {
     if(process.env.NODE_ENV !== "production") {
-        mongoose.set("debug", true);
+        //mongoose.set("debug", true);
     }
     if(mongoose.connection.readyState == 0) {
         mongoose.connect(mCommon.AesDec(process.env.MONGO_CON), {
@@ -16,6 +17,8 @@ const connect = () => {
             }
             else {
                 console.log("몽고디비 연결 성공");
+                //처음 생성시 ActionList 셋팅하기
+                mDWM.ActionMasterInit();
             }
         });
     }
@@ -24,6 +27,7 @@ const connect = () => {
 mongoose.connection.on("error", (error) => {
     console.error("몽고디비 연결 에러", error);
 });
+
 mongoose.connection.on("disconnected", () => {
     console.error("몽고디비 연결이 끊겼습니다. 연결을 재시도합니다.");
     connect();

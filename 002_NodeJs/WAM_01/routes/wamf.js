@@ -3,7 +3,6 @@ const router = express.Router();
 var mCommon = require("./Module/Common");
 var mStatus = require("./Module/Status");
 var mCount = require("./Module/Count");
-var mRecentAction = require("./Module/RecentAction");
 var mActionLog = require("./Module/ActionLog");
 
 router.get('/', async (req, res) => {
@@ -39,9 +38,9 @@ router.get('/', async (req, res) => {
                         var iMyOrd = arrWamKey[2];
                         //내순번 - 현재순번 <= 허용범위 카운트일 경우 반환값을 finish 처리
                         if(Number(iMyOrd) - Number(iNowOrd) <= Number(arrAction[3])) {
-                            mCount.NowOrdUp(strActionId);
-                            //최근 로그 삭제
-                            mRecentAction.RecentActionDelete(strActionId, iMyOrd);
+                            mCount.NowOrdUp(strActionId, 1);
+                            //최근 로그 삭제--여기에 넣기보단 PASS되는 시점이 맞는것 같아서 이관
+                            //mRecentAction.RecentActionDelete(strActionId, iMyOrd);
                             //ActionLog OutDt Update
                             mActionLog.ActionLogUpdate(strActionId, strWamKey, iMyOrd);
                             rtnVal.isError = false;

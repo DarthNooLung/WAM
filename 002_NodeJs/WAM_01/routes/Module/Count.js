@@ -19,7 +19,6 @@ async function fnCreateList(strActionId)
     return arrActionInfor;
 }
 
-
 //Action Id의 정보 가져오기
 async function fnGetList(strActionId)
 {
@@ -46,6 +45,7 @@ async function fnGetList(strActionId)
         if(!isActionIdExists)
         {
             arrRtnVal = await fnCreateList(strActionId);
+            arrMaster.push(arrRtnVal);
         }
     }
 
@@ -57,15 +57,13 @@ module.exports.GetList = fnGetList;
 async function fnTotCountUp(strActionId){
     for(var i = 0; i < arrMaster.length; i++)
     {
-        var arrTmpVal = arrMaster[i];
 
-        if(arrTmpVal[0] == strActionId)
+        if(arrMaster[i][0] == strActionId)
         {
-            arrTmpVal[1]++;
-            arrMaster[i] = arrTmpVal;
+            arrMaster[i][1]++;
 
-            if(arrTmpVal[1] % 1 == 0){
-                await mDWM.ActionIdUpdate(strActionId, "TotCnt", arrTmpVal[1]);
+            if(arrMaster[i][1] % 1 == 0){
+                await mDWM.ActionIdUpdate(strActionId, "TotCnt", arrMaster[i][1]);
             }
         }
     }
@@ -73,18 +71,22 @@ async function fnTotCountUp(strActionId){
 module.exports.TotCountUp = fnTotCountUp;
 
 //NowOrder 증가 처리
-async function fnNowOrdUp(strActionId){
+async function fnNowOrdUp(strActionId, iUpCnt){
     for(var i = 0; i < arrMaster.length; i++)
     {
-        var arrTmpVal = arrMaster[i];
-
-        if(arrTmpVal[0] == strActionId)
+        if(arrMaster[i][0] == strActionId)
         {
-            arrTmpVal[2]++;
-            arrMaster[i] = arrTmpVal;
+            var iTmpCnt = iUpCnt;
 
-            if(arrTmpVal[2] % 1 == 0){
-                await mDWM.ActionIdUpdate(strActionId, "NowOrd", arrTmpVal[2]);
+            //전체 순번이 현재순번 + 증가값보다 작을 경우
+            if(arrMaster[i][1] < (arrMaster[i][2] + iTmpCnt))
+            {
+                iTmpCnt = arrMaster[i][1] - arrMaster[i][2];
+            }
+            arrMaster[i][2] += iTmpCnt;
+
+            if(arrMaster[i][2] % 1 == 0){
+                await mDWM.ActionIdUpdate(strActionId, "NowOrd", arrMaster[i][2]);
             }
         }
     }

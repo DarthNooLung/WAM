@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-var mCommon = require("./Module/Common");
-var mStatus = require("./Module/Status");
-var mCount = require("./Module/Count");
-var mActionLog = require("./Module/ActionLog");
+const mCommon = require("./Module/Common");
+const mStatus = require("./Module/Status");
+const mCount = require("./Module/Count");
+const mActionLog = require("./Module/ActionLog");
 
 router.get('/', async (req, res) => {
     //return 값을 Jquery로 처리
@@ -20,13 +20,13 @@ router.get('/', async (req, res) => {
     if(req.query.ActionId != undefined)
     {
         var strActionId = req.query.ActionId;
-
+        
         if(strActionId != "")
         {
             //ActionId가 사용 가능 할 경우
             if(await mStatus.GetStatus(strActionId)){
                 var arrAction = await mCount.GetList(strActionId);
-
+                
                 //전체 사용자수 증가
                 await mCount.TotCountUp(strActionId);
                 
