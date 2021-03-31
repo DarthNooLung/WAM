@@ -4,6 +4,7 @@ const mCommon = require("./Module/Common");
 const mStatus = require("./Module/Status");
 const mCount = require("./Module/Count");
 const mActionLog = require("./Module/ActionLog");
+var mRecentAction = require("./Module/RecentAction");
 
 router.get('/', async (req, res) => {
     //return 값을 Jquery로 처리
@@ -46,6 +47,8 @@ router.get('/', async (req, res) => {
                 var strWamKey = strActionId + "_" + strGuid + "_" + String(rtnVal.MyOrd);
                 //In Log 쌓기
                 mActionLog.ActionLogInsert(strActionId, strWamKey, rtnVal.MyOrd);
+                //최근 로그에 쌓기
+                mRecentAction.RecentActionInsert(strActionId, rtnVal.MyOrd, true);
                 //키값 암호화
                 strWamKey = mCommon.AesEnc(strWamKey);
                 strWamKey = encodeURIComponent(strWamKey);

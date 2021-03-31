@@ -4,30 +4,22 @@
         <script type="text/javascript">
             function fnCall()
             {
+                $("#btnStart").hide();
+                $("#btnIng").show();
+                WAM_GO({action_id: "1"}, "http://www.naver.com");
                 /*
-                alert(WaitAMinute.MainLayerY);
-                alert(WaitAMinute.MainLayerX);
-                alert(window.scrollY || window.pageYOffset);
-                alert(window.scrollX || window.pageXOffset);
-                alert(window.pageYOffset);
-                alert(window.pageXOffset);
-                alert(window.innerHeight);
-                alert(window.innerWidth);
-                return false;
-                */
-               $("#btnStart").hide();
-               $("#btnIng").show();
                 WAM_GO({action_id: "1"}, function() {
-                    alert("호출 시작");                    
+                    //alert("호출 시작");
                     var iCnt = 0;
                     for(var i = 0; i < 500000000; i++)
                     {
                         iCnt++;
                     }
-                    alert("확인 버튼 클릭시 최종 호출 완료.");
+                    //alert("확인 버튼 클릭시 최종 호출 완료.");
                     $("#btnIng").hide();
                     $("#btnStart").show();
                 });
+                */
             }
         </script>
     </head>

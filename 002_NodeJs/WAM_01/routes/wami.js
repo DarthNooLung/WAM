@@ -50,12 +50,11 @@ router.get('/', async (req, res) => {
                         if(Number(rtnVal.MyOrd) - Number(rtnVal.NowOrd) <= Number(arrAction[3])) 
                         {
                             rtnVal.RtnType = "PASS";
-                            mRecentAction.RecentActionDelete(strActionId, rtnVal.MyOrd);
                         }
                         //계속 대기일 경우 로그 테이블에 상태값 업데이트
                         else 
                         {
-                            mRecentAction.RecentActionInsert(strActionId, rtnVal.MyOrd);
+                            mRecentAction.RecentActionInsert(strActionId, rtnVal.MyOrd, false);
                         }
                         rtnVal.isError = false;
                     }

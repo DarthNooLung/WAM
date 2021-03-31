@@ -3,7 +3,7 @@ const mCommon = require("../../Module/Common");
 const mCount = require("../../Module/Count");
 
 //최근 Action 정보 등록
-function fnRecentActionInsert(ActionId, MyOrd)
+function fnRecentActionInsert(ActionId, MyOrd, IsFirst)
 {
     var nowDt = new Date();
     var iYear = nowDt.getFullYear();
@@ -18,10 +18,10 @@ function fnRecentActionInsert(ActionId, MyOrd)
     var iOrd02 = (iOrd01 + 5) % 10;
 
     //동일한 시간대가 아닌 본인의 순번에 따른 분산으로 저장 처리(한번은 안될 수 있어서 2개로 함)
-    if(iSecond % 10 == iOrd01 || iSecond % 10 == iOrd02)
+    if(iSecond % 10 == iOrd01 || iSecond % 10 == iOrd02 || IsFirst)
     {
-        var iTime = String(iYear) + mCommon.LPad(String(iMonth), 2, "0") + mCommon.LPad(String(iDay), 2, "0") + mCommon.LPad(String(iHour), 2, "0") + mCommon.LPad(String(iMinute), 2, "0");
-        console.log(iTime);
+        var iTime = String(iYear) + mCommon.LPad(String(iMonth), 2, "0") + mCommon.LPad(String(iDay), 2, "0") + mCommon.LPad(String(iHour), 2, "0") + mCommon.LPad(String(iMinute), 2, "0") + mCommon.LPad(String(iSecond), 2, "0");
+        
         WamRecentAction.updateOne
         (
             {ActionId: ActionId, MyOrd: MyOrd},
@@ -65,13 +65,14 @@ function fnActionRemove()
 {
     //현재시간에서 2분 빼기
     var nowDt = new Date();
-    nowDt.setMinutes(nowDt.getMinutes() - 2);
+    nowDt.setSeconds(nowDt.getSeconds() - 120);
     var iYear = nowDt.getFullYear();
     var iMonth = nowDt.getMonth() + 1;
     var iDay = nowDt.getDate();
     var iHour = nowDt.getHours();
     var iMinute = nowDt.getMinutes();
-    var iTime = String(iYear) + mCommon.LPad(String(iMonth), 2, "0") + mCommon.LPad(String(iDay), 2, "0") + mCommon.LPad(String(iHour), 2, "0") + mCommon.LPad(String(iMinute), 2, "0");
+    var iSecond = nowDt.getSeconds();
+    var iTime = String(iYear) + mCommon.LPad(String(iMonth), 2, "0") + mCommon.LPad(String(iDay), 2, "0") + mCommon.LPad(String(iHour), 2, "0") + mCommon.LPad(String(iMinute), 2, "0") + mCommon.LPad(String(iSecond), 2, "0");
     iTime = Number(iTime);
 
     //최종 상태변경값이 2분 이전일 경우(튕기거나 나간 사람으로 간주)

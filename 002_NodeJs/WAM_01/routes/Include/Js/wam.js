@@ -10,8 +10,12 @@ WaitAMinute.URL = "http://localhost:216";
 //레이어 HTML
 //WaitAMinute.WamMainFrameBody = "<div style='width: 298; height: 198;text-align:center;border: 0px solid red;'><br/><table style='margin-left: auto; margin-right: auto;width: 250px;' border='1' cellpadding='0' cellspacing='0'><colgroup><col width='33%'/><col width='33%'/><col width='*'/></colgroup><tr><th>전체</th><th>앞</th><th>뒤</th></tr><tr><td id='WamLayerTotalCnt' style='text-align:center;'>{WamLayerTotalCnt}</td><td id='WamLayerBeforeCnt' style='text-align:center;'>{WamLayerBeforeCnt}</td><td id='WamLayerAfterCnt' style='text-align:center;'>{WamLayerAfterCnt}</td></tr></table><table style='margin-left: auto; margin-right: auto;width: 250px;margin-top:10px;' border='0' cellpadding='0' cellspacing='0'><tr><td style='border:1px solid black;height:15px;'><div style='background-color:#e4e4e4;width:{WamLayerPercent}%;font-size:2px;'>&nbsp;</div></td></tr></table></div>";
 WaitAMinute.WamMainFrameBody = "<div style='width: 298; height: 198;text-align:center;border: 0px solid red;'><br/><table style='margin-left: auto; margin-right: auto;width: 250px;' border='1' cellpadding='0' cellspacing='0'><colgroup><col width='33%'/><col width='33%'/><col width='*'/></colgroup><tr><th>전체</th><th>앞</th><th>뒤</th></tr><tr><td id='WamLayerTotalCnt' style='text-align:center;'>{WamLayerTotalCnt}</td><td id='WamLayerBeforeCnt' style='text-align:center;'>{WamLayerBeforeCnt}</td><td id='WamLayerAfterCnt' style='text-align:center;'>{WamLayerAfterCnt}</td></tr></table></div>";
+//호출 타입
+WaitAMinute.CallBodyType = null;
 //호출 본체 함수
-//WaitAMinute.CallBodyFunction = null;
+WaitAMinute.CallBodyFunction = null;
+//호출 링크
+WaitAMinute.CallBodyLink = null;
 //카운팅 레이어 크기
 WaitAMinute.MainLayerX = 300;
 WaitAMinute.MainLayerY = 200;
@@ -26,7 +30,12 @@ function WAM_GO(o, b)
     else {
         //호출하는게 함수 일 경우
         if(typeof b == "function") {
+            WaitAMinute.CallBodyType = "FUNCTION";
             WaitAMinute.CallBodyFunction = b;
+        }
+        else if(typeof b == "string") {
+            WaitAMinute.CallBodyType = "LINK";
+            WaitAMinute.CallBodyLink = b;
         }
     }
 
@@ -200,8 +209,21 @@ function wamResult(data) {
             }
 
             setTimeout(function(){
-                WaitAMinute.CallBodyFunction();
-                wamFinish(data.WamKey);    
+                //함수일 경우
+                if(WaitAMinute.CallBodyType == "FUNCTION"){
+                    WaitAMinute.CallBodyFunction();
+                    wamFinish(data.WamKey);
+                }
+                //링크일 경우
+                else if(WaitAMinute.CallBodyType == "LINK"){
+                    if(WaitAMinute.CallBodyLink != null && WaitAMinute.CallBodyLink != "") {
+                        window.addEventListener('beforeunload', function() {
+                            //해당 Action의 시간을 제외처리
+                            console.log("asdfasdfasdf");
+                        });
+                        self.location.href = WaitAMinute.CallBodyLink;
+                    }
+                }
             }, 500);
             
         }
@@ -212,3 +234,7 @@ function wamResult(data) {
         alert(data.Msg);
     }
 }
+
+window.addEventListener('unload', function(event) {
+    console.log('I am the 3rd one.');
+  });

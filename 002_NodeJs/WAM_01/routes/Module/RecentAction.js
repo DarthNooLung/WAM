@@ -1,9 +1,9 @@
 const mDWRA = require("../DataAccess/Execute/DaWamRecentAction");
 
 //최근 Action 정보 등록
-function fnRecentActionInsert(ActionId, MyOrd)
+function fnRecentActionInsert(ActionId, MyOrd, IsFirst)
 {
-    mDWRA.RecentActionInsert(ActionId, MyOrd);
+    mDWRA.RecentActionInsert(ActionId, MyOrd, IsFirst);
 }
 module.exports.RecentActionInsert = fnRecentActionInsert;
 

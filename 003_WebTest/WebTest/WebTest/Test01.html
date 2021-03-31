@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        function fnCall() {
+            self.location.href = "./Test01.aspx";
+        }
+
+        function fnChange() {
+            console.log("asdfasdf");
+        }
+    </script>
+</head>
+<body onunload="fnChange()">
+    <input type="button" id="btnCall" onclick="fnCall()" value="호출" />
+</body>
+</html>
