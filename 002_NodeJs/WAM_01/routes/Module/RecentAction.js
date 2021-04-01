@@ -13,3 +13,9 @@ function fnRecentActionDelete(ActionId, MyOrd)
     mDWRA.RecentActionDelete(ActionId, MyOrd);
 }
 module.exports.RecentActionDelete = fnRecentActionDelete;
+
+//해당 ActionLog 시분초 수정하기
+function fnRecentActionCalcSecUpdate(ActionId, MyOrd, CalcSec) {
+    mDWRA.RecentActionCalcSecUpdate(ActionId, MyOrd, CalcSec);
+}
+module.exports.RecentActionCalcSecUpdate = fnRecentActionCalcSecUpdate;

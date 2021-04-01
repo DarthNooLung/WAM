@@ -47,7 +47,7 @@ function fnRecentActionInsert(ActionId, MyOrd, IsFirst)
 module.exports.RecentActionInsert = fnRecentActionInsert;
 
 
-//최근 Action 정보 등록
+//최근 Action 정보 삭제
 function fnRecentActionDelete(ActionId, MyOrd)
 {
     WamRecentAction.deleteOne({ActionId: ActionId, MyOrd: MyOrd})
@@ -61,7 +61,7 @@ function fnRecentActionDelete(ActionId, MyOrd)
 module.exports.RecentActionDelete = fnRecentActionDelete;
 
 //시간 지난 Action 리스트 처리 하기
-function fnActionRemove()
+function fnRecentActionRemove()
 {
     //현재시간에서 2분 빼기
     var nowDt = new Date();
@@ -111,4 +111,37 @@ function fnActionRemove()
         }
     );
 }
-module.exports.ActionRemove = fnActionRemove;
+module.exports.RecentActionRemove = fnRecentActionRemove;
+
+//해당 ActionLog 시분초 수정하기
+function fnRecentActionCalcSecUpdate(ActionId, MyOrd, CalcSec) {
+    //현재시간에서 2분(-계산된시간) 빼기
+    var nowDt = new Date();
+    nowDt.setSeconds(nowDt.getSeconds() - (120 - CalcSec));
+    var iYear = nowDt.getFullYear();
+    var iMonth = nowDt.getMonth() + 1;
+    var iDay = nowDt.getDate();
+    var iHour = nowDt.getHours();
+    var iMinute = nowDt.getMinutes();
+    var iSecond = nowDt.getSeconds();
+    var iTime = String(iYear) + mCommon.LPad(String(iMonth), 2, "0") + mCommon.LPad(String(iDay), 2, "0") + mCommon.LPad(String(iHour), 2, "0") + mCommon.LPad(String(iMinute), 2, "0") + mCommon.LPad(String(iSecond), 2, "0");
+    iTime = Number(iTime);
+
+    WamRecentAction.updateOne
+    (
+        {ActionId: ActionId, MyOrd: MyOrd},
+        {
+            ActionId: ActionId,
+            MyOrd: MyOrd,
+            LastTime: Number(iTime)
+        },
+        { upsert : true }
+    )
+    .then(result => {
+        return true;
+    })
+    .catch(err => {
+        return false;
+    });
+}
+module.exports.RecentActionCalcSecUpdate = fnRecentActionCalcSecUpdate;

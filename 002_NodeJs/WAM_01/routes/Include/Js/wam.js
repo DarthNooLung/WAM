@@ -219,7 +219,14 @@ function wamResult(data) {
                     if(WaitAMinute.CallBodyLink != null && WaitAMinute.CallBodyLink != "") {
                         window.addEventListener('beforeunload', function() {
                             //해당 Action의 시간을 제외처리
-                            console.log("asdfasdfasdf");
+                            console.log(data.WamKey);
+                            $.ajax({
+                                url: WaitAMinute.URL + "/wamc?ActionId=" + WaitAMinute.ActionId + "&WamKey=" + data.WamKey + "&WamSec=1",
+                                dataType: 'jsonp',
+                                jsonp: 'jsonp',
+                                error: function (request, error) {                                    
+                                }
+                            });
                         });
                         self.location.href = WaitAMinute.CallBodyLink;
                     }
@@ -234,7 +241,3 @@ function wamResult(data) {
         alert(data.Msg);
     }
 }
-
-window.addEventListener('unload', function(event) {
-    console.log('I am the 3rd one.');
-  });

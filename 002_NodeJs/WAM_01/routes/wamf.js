@@ -25,13 +25,13 @@ router.get('/', async (req, res) => {
                 //현재까지 완료된 수 할당
                 var iNowOrd = arrAction[2];
                 
-                 //쿠키값이 존재하는지 체크
+                 //키값이 존재하는지 체크
                  if(req.query.WamKey != undefined) {
                     var strWamKey = decodeURIComponent(req.query.WamKey);
-                    //쿠키값 복호화
+                    //키값 복호화
                     strWamKey = mCommon.AesDec(strWamKey);
 
-                    //쿠키값에서 내 순번 가져오기
+                    //키값에서 내 순번 가져오기
                     var arrWamKey = strWamKey.split("_");
 
                     //3개의 값으로 이루어져 있는지 체크

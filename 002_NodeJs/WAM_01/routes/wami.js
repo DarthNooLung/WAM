@@ -36,10 +36,10 @@ router.get('/', async (req, res) => {
                     var strWamKey = decodeURIComponent(req.query.WamKey);
                     rtnVal.WamKey = encodeURIComponent(strWamKey);
 
-                    //쿠키값 복호화
+                    //키값 복호화
                     strWamKey = mCommon.AesDec(strWamKey);
                     
-                    //쿠키값에서 내 순번 가져오기
+                    //키값에서 내 순번 가져오기
                     var arrWamKey = strWamKey.split("_");
                     
                     //3개의 값으로 이루어져 있는지 체크

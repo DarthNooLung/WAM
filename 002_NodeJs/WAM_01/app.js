@@ -12,13 +12,14 @@ connect();
 
 setInterval(() => {
     //중간에 튕겨지거나 나간 사람들 체크해서 삭제 및 Count Update 처리
-    mDWRA.ActionRemove();
+    mDWRA.RecentActionRemove();
 }, 5000);
 
 const indexRouter = require('./routes');
 const wamsRouter = require('./routes/wams');
 const wamiRouter = require('./routes/wami');
 const wamfRouter = require('./routes/wamf');
+const wamcRouter = require('./routes/wamc');
 const wamMasterCreate = require('./routes/DataAccess/WamMasterCreate');
 
 //테스트용입니다. 나중에 제거하세요.
@@ -43,6 +44,7 @@ app.use('/WamMasterCreate', wamMasterCreate);
 app.use('/wams', wamsRouter);
 app.use('/wami', wamiRouter);
 app.use('/wamf', wamfRouter);
+app.use('/wamc', wamcRouter);
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
