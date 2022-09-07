@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         ActionId: "1",
         TotCnt: 0,
         NowOrd: 0,
-        AccCnt: 0,
+        AccCnt: 1,
         DebugMode: false,
         UseYn: true
     });

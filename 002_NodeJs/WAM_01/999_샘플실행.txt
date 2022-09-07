@@ -1,0 +1,6 @@
+기본 마스터 만들기
+    - http://localhost:216/WamMasterCreate
+
+실행
+    - WAM_01 폴더에 들어가서 node app.js 로 실행
+    - http://localhost:216/WamCon

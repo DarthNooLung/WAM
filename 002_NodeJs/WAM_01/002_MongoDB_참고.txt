@@ -1,2 +1,10 @@
 group by 조건절
 https://docs.mongodb.com/manual/reference/operator/aggregation/group/
+
+계정 생성하는 법
+db.createUser({user: '아이디', pwd: '비밀번호', roles: ['root']});
+https://inpa.tistory.com/entry/MONGO-%F0%9F%93%9A-%EC%82%AC%EC%9A%A9%EC%9E%90-%EA%B3%84%EC%A0%95-%EA%B4%80%EB%A6%AC-%ED%95%98%EA%B8%B0-%EC%B6%94%EA%B0%80%EC%82%AD%EC%A0%9C
+
+계정 리스트 보기
+db.getUsers();
+
