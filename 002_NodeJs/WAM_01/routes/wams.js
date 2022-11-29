@@ -52,15 +52,22 @@ router.get('/', async (req, res) => {
                 //키값 암호화
                 strWamKey = mCommon.AesEnc(strWamKey);
                 strWamKey = encodeURIComponent(strWamKey);
-
+                
+                //기존에 쿠키 방식
                 //res.cookie("WamActionId", strWamKey);
+
+                //파라미터 방식으로 변경(변경하면서 sessionStorage 추가)
                 rtnVal.WamKey = strWamKey;
+                //세션 스토리지의 Key값 할당
+                try {window.sessionStorage.setItem("netKey", strWamKey);}catch(e) {}
 
                 if(Number(rtnVal.MyOrd) - Number(rtnVal.NowOrd) <= Number(arrAction[3])) {
                     rtnVal.RtnType = "PASS";
                 }
-                
+
                 rtnVal.isError = false;
+
+                //console.log("상태 : " + rtnVal.RtnType);
                 //console.log(arrAction);
             }
             else {

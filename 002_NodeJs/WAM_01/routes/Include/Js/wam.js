@@ -20,6 +20,8 @@ WaitAMinute.CallBodyLink = null;
 WaitAMinute.MainLayerX = 300;
 WaitAMinute.MainLayerY = 200;
 
+
+//WAM 최초 시작
 function WAM_GO(o, b)
 {
     //호출 본체가 있는지 체크
@@ -38,6 +40,9 @@ function WAM_GO(o, b)
             WaitAMinute.CallBodyLink = b;
         }
     }
+
+    //세션 스토리지의 Key값 초기화
+    try {window.sessionStorage.removeItem("netKey");}catch(e) {}
 
     var mBody = document;
 
@@ -92,6 +97,26 @@ function WAM_GO(o, b)
             wamStart();
         }
     }
+}
+
+function WAM_FINISH() {
+    var strWamKey = "";
+
+    try {
+        strWamKey = window.sessionStorage.getItem("netKey");
+    }
+    catch(e) {}
+    /*
+    $.ajax({
+        url: WaitAMinute.URL + "/wamf?ActionId=" + WaitAMinute.ActionId + "&WamKey=" + strWamKey,
+        dataType: 'jsonp',
+        jsonp: 'jsonp',
+        jsonpCallback: "wamResult",
+        error: function (request, error) {
+            alert("message:" + request.responseText);
+        }
+    });
+    */
 }
 
 function wamStart() {
@@ -208,18 +233,20 @@ function wamResult(data) {
                 document.getElementById("wamMainFrame").style.display = "none";
             }
 
-            setTimeout(function(){
+            setTimeout(function(){                
                 //함수일 경우
                 if(WaitAMinute.CallBodyType == "FUNCTION"){
                     WaitAMinute.CallBodyFunction();
+
+                    //함수 종료 후 자동으로 될 경우 처리(-> 종료 펑션을 부르는 방식으로 변경)
                     wamFinish(data.WamKey);
                 }
                 //링크일 경우
                 else if(WaitAMinute.CallBodyType == "LINK"){
                     if(WaitAMinute.CallBodyLink != null && WaitAMinute.CallBodyLink != "") {
-                        window.addEventListener('beforeunload', function() {
-                            //해당 Action의 시간을 제외처리
-                            console.log(data.WamKey);
+                        //console.log("WamC : " + data.WamKey);
+                        window.addEventListener('beforeunload', function() {               
+                            //해당 Action의 시간을 제외처리                            
                             $.ajax({
                                 url: WaitAMinute.URL + "/wamc?ActionId=" + WaitAMinute.ActionId + "&WamKey=" + data.WamKey + "&WamSec=1",
                                 dataType: 'jsonp',

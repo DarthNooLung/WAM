@@ -34,7 +34,11 @@ router.get('/', async (req, res) => {
                 //키값이 존재하는지 체크
                 if(req.query.WamKey != undefined) {
                     var strWamKey = decodeURIComponent(req.query.WamKey);
-                    rtnVal.WamKey = encodeURIComponent(strWamKey);
+                    strWamKey = encodeURIComponent(strWamKey);
+                    rtnVal.WamKey = strWamKey;
+
+                    //세션 스토리지의 Key값 할당(혹시 사라졌을까봐 반복적으로 할당)
+                    try {window.sessionStorage.setItem("netKey", strWamKey);}catch(e) {}
 
                     //키값 복호화
                     strWamKey = mCommon.AesDec(strWamKey);
